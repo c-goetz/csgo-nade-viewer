@@ -78,7 +78,7 @@ func toSide(s string) Side {
 type ThrowMod string
 
 const (
-	ThrowModRegular    ThrowMod = "throw"
+	ThrowModRegular    ThrowMod = "regular"
 	ThrowModLeftClick  ThrowMod = "lc"
 	ThrowModRightClick ThrowMod = "rc"
 	ThrowModW          ThrowMod = "w"
@@ -90,7 +90,7 @@ const (
 
 func toThrowMod(s string) ThrowMod {
 	switch s {
-	case "throw":
+	case "regular":
 		return ThrowModRegular
 	case "lc":
 		return ThrowModLeftClick
