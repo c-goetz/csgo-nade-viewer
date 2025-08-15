@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang=en>
+
+<head>
+  <meta charset=utf-8>
+  <title>Naaaaaaaades!</title>
+  <style>
+    :root {
+      --color-bg: #282828;
+      --color-red: #cc241d;
+      --color-green: #98971a;
+      --color-yellow: #d79921 --color-blue: #458588;
+      --color-purple: #b16286;
+      --color-fg: #ebdbb2;
+    }
+
+    * {
+      background-color: var(--color-bg);
+      color: var(--color-fg);
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      left: 0;
+    }
+
+    h4 {
+      color: var(--color-red);
+    }
+
+    .mods span {
+      color: var(--color-purple);
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="maps">
+      <span>map:</span>
+      <label>
+        <input type="radio" name="map" value="all" />
+        all
+      </label>
+      {{range .AllMaps}}
+      <label>
+        <input type="radio" name="map" value="{{.}}" />
+        {{.}}
+      </label>
+      {{end}}
+    </div>
+    <div class="sides">
+      <span>side:</span>
+      <label>
+        <input type="radio" name="side" value="all" />
+        all
+      </label>
+      {{range .AllSides}}
+      <label>
+        <input type="radio" name="side" value="{{.}}" />
+        {{.}}
+      </label>
+      {{end}}
+    </div>
+  </header>
+  <main>
+    <h1>Nades</h1>
+    {{range $map := $.AllMaps}}
+    <section class="map {{$map}}">
+      <h2>{{$map}}</h2>
+      {{range $side := $.AllSides}}
+      <section class="side {{$side}}">
+        <h3>{{$side}}</h3>
+        {{range $nade := index $.Nades $map $side}}
+        <section class="nade">
+          <h4>{{$nade.Name}}</h4>
+          <div class="mods">
+            {{range $nade.ThrowMods}}
+            <span>{{.}}</span>
+            {{end}}
+          </div>
+          <div class="imgs">
+            {{range $nade.Images}}
+            <picture>
+              <img src="img/{{.}}" width="400" height="225" />
+            </picture>
+            {{end}}
+          </div>
+        </section>
+        {{end}}
+      </section>
+      {{end}}
+    </section>
+    {{end}}
+  </main>
+</body>
+<script>
+  const main = document.querySelector('main');
+  const maps = document.querySelector('.maps');
+  maps.addEventListener('input', e => {
+    const v = e.target.value;
+    if (v === 'all') {
+      document.querySelectorAll('.map').forEach(m => m.hidden = false);
+    } else {
+      document.querySelectorAll('.map').forEach(m => m.hidden = !m.classList.contains(v))
+    }
+  });
+  const sides = document.querySelector('.sides');
+  sides.addEventListener('input', e => {
+    const v = e.target.value;
+    if (v === 'all') {
+      document.querySelectorAll('.side').forEach(m => m.hidden = false);
+    } else {
+      document.querySelectorAll('.side').forEach(m => m.hidden = !m.classList.contains(v));
+    }
+  });
+</script>
+
+</html>
