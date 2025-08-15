@@ -86,6 +86,7 @@ const (
 	ThrowModD          ThrowMod = "d"
 	ThrowModShift      ThrowMod = "shift"
 	ThrowModJump       ThrowMod = "jump"
+	ThrowModCrouch     ThrowMod = "crouch"
 )
 
 func toThrowMod(s string) ThrowMod {
@@ -106,6 +107,8 @@ func toThrowMod(s string) ThrowMod {
 		return ThrowModShift
 	case "jump":
 		return ThrowModJump
+	case "crouch":
+		return ThrowModCrouch
 	default:
 		panic("unknown throwMod: " + s)
 	}
